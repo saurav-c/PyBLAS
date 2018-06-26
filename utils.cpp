@@ -3,26 +3,29 @@
 
 using namespace boost::python;
 
-typedef boost::numeric::ublas::vector<double> vector;
+typedef boost::numeric::ublas::vector<double> BaseVector;
 
-void set(vector vec, unsigned int index, double value) {
-	vec(index) = value;
-}
+class Vector : public BaseVector {
+	void set(unsigned int index, double value) {
+		this(index) = value;
+	}
 
-double get(vector vec, unsigned int index) {
-	return vec(index);
-}
-
+	double get(unsigned int index) {
+		return this(index);
+	}
+} 
 
 BOOST_PYTHON_MODULE(utils)
 {
-    class_<vector>("Vector")
+    class_<Vector>("Vector")
     	.def(init<unsigned int>())
     	.def(init<vector>())
-    	.def("size", &vector::size)
-    	.def("resize", &vector::resize)
-    	.def("max_size", &vector::max_size)
-    	.def("empty", &vector::empty)
+    	.def("size", &Vector::size)
+    	.def("resize", &Vector::resize)
+    	.def("max_size", &Vector::max_size)
+    	.def("empty", &Vector::empty)
+    	.def("set", &Vector::set)
+    	.def("get", &Vector::get)
     ;
 }
 
