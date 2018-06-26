@@ -1,24 +1,10 @@
 #include <boost/python.hpp>
 #include <boost/numeric/ublas/vector.hpp>
 
+#include <std::vector>
 using namespace boost::python;
 
-typedef boost::numeric::ublas::vector<double> BaseVector;
-
-class Vector : public BaseVector {
-public:
-	Vector() : BaseVector() {}
-	Vector(unsigned int size) : BaseVector(size) {}
-	// TODO: Figure how to use copy constructor
-	// Vector(const BaseVector vector) : BaseVector(vector) {}
-	void set(unsigned int index, double value) {
-		(*this)(index) = value;
-	}
-
-	double get(unsigned int index) {
-		return (*this)(index);
-	}
-}; 
+typedef boost::numeric::ublas::vector<double> Vector;
 
 BOOST_PYTHON_MODULE(utils)
 {
@@ -29,8 +15,7 @@ BOOST_PYTHON_MODULE(utils)
     	.def("resize", &Vector::resize)
     	.def("max_size", &Vector::max_size)
     	.def("empty", &Vector::empty)
-    	.def("set", &Vector::set)
-    	.def("get", &Vector::get)
+    	.def(vector_indexing_suite<std::vector<Vector>>())
     ;
 }
 
