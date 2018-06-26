@@ -7,6 +7,9 @@ typedef boost::numeric::ublas::vector<double> BaseVector;
 
 class Vector : public BaseVector {
 public:
+	Vector() : BaseVector() {}
+	Vector(unsigned int size) : BaseVector(size) {}
+	Vector(Vector vector) : BaseVector(vector) {}
 	void set(unsigned int index, double value) {
 		(*this)(index) = value;
 	}
