@@ -9,6 +9,7 @@ BOOST_PYTHON_MODULE(utils)
 {
     class_<vector>("Vector")
     	.def(init<unsigned int>())
+    	.def("size", &vector::size)
     ;
 }
 
