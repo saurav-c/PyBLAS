@@ -1,7 +1,7 @@
 #include <boost/python.hpp>
 #include <boost/numeric/ublas/vector.hpp>
 
-#include <std::vector>
+#include <vector>
 using namespace boost::python;
 
 typedef boost::numeric::ublas::vector<double> Vector;
