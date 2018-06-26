@@ -21,6 +21,9 @@ RUN sudo apt-get install -y g++
 # install Make
 RUN sudo apt-get install -y build-essential
 
+# install Boost
+RUN sudo apt-get install -y libboost-all-dev
+
 # install Boost.Python
 RUN sudo apt-get install -y libboost-python-dev 
 RUN sudo apt-get install -y python-dev
