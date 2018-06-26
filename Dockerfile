@@ -28,4 +28,7 @@ RUN sudo apt-get install -y libboost-all-dev
 RUN sudo apt-get install -y libboost-python-dev 
 RUN sudo apt-get install -y python-dev
 
+# Setup repo
+RUN cd usr/src && git clone https://github.com/saurav-c/PyBLAS.git
+
 

@@ -1,12 +1,14 @@
 #include <boost/python.hpp>
-using namespace boost::python;
-
-
 #include <boost/numeric/ublas/vector.hpp>
 
+using namespace boost::python;
 
-BOOST_PYTHON_MODULE(vector)
+typedef boost::numeric::ublas::vector<double> vector;
+
+BOOST_PYTHON_MODULE(utils)
 {
-	class_<boost::numeric::ublas::vector<double>>("vector")
+    class_<vector>("Vector")
+    	.def(init<unsigned int>())
+    ;
 }
 
