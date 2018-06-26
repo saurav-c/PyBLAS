@@ -3,6 +3,8 @@ import flask
 from flask import session
 from flask_session import Session
 
+import ublas
+
 app = flask.Flask(__name__)
 
 @app.route('/connect', methods=['POST'])
