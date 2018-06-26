@@ -9,7 +9,8 @@ class Vector : public BaseVector {
 public:
 	Vector() : BaseVector() {}
 	Vector(unsigned int size) : BaseVector(size) {}
-	Vector(Vector& vector) : BaseVector(vector) {}
+	// TODO: Figure how to use copy constructor
+	// Vector(const BaseVector vector) : BaseVector(vector) {}
 	void set(unsigned int index, double value) {
 		(*this)(index) = value;
 	}
