@@ -5,6 +5,15 @@ using namespace boost::python;
 
 typedef boost::numeric::ublas::vector<double> vector;
 
+void set(vector vec, unsigned int index, double value) {
+	vec(index) = value;
+}
+
+double get(vector vec, unsigned int index) {
+	return vec(index);
+}
+
+
 BOOST_PYTHON_MODULE(utils)
 {
     class_<vector>("Vector")
