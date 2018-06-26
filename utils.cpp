@@ -8,11 +8,11 @@ typedef boost::numeric::ublas::vector<double> BaseVector;
 class Vector : public BaseVector {
 public:
 	void set(unsigned int index, double value) {
-		this(index) = value;
+		(*this)(index) = value;
 	}
 
 	double get(unsigned int index) {
-		return this(index);
+		return (*this)(index);
 	}
 }; 
 
