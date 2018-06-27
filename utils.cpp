@@ -35,18 +35,6 @@ public:
 	}
 
 
-	// Arithemetic operators
-	Vector& operator*= (double scalar) {
-		(*this) *= scalar;
-		return *this;
-	}
-	Vector& operator/= (double scalar) {
-		(*this) /= scalar;
-		return *this;
-	}
-
-
-
 };
 
 
@@ -70,9 +58,6 @@ BOOST_PYTHON_MODULE(utils)
     	.def("end", &Vector::end_it)
     	.def("rbegin", &Vector::rbegin_it)
     	.def("rend", &Vector::rend_it)
-    	.def(self *= double())
-    	.def(self /= double())
-
     	.def("test", &Vector::test)
     ;
 
