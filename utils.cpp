@@ -3,7 +3,16 @@
 
 using namespace boost::python;
 
-typedef boost::numeric::ublas::vector<double> Vector;
+typedef boost::numeric::ublas::vector<double> BaseVector;
+
+class Vector: public BaseVector {
+public: 
+	Vector() : BaseVector() {}
+	Vector(unsigned int size) : BaseVector(size) {}
+	Vector(Vector v) : BaseVector(&v) {}
+}
+
+
 
 BOOST_PYTHON_MODULE(utils)
 {
@@ -15,9 +24,9 @@ BOOST_PYTHON_MODULE(utils)
     	.def("max_size", &Vector::max_size)
     	.def("empty", &Vector::empty)
     	.def("swap", &Vector::swap)
-    	.def("insert_element", &Vector::insert_element)
-    	.def("erase_element", &Vector::erase_element)
-    	.def("clear", &Vector::clear)
+    	// .def("insert_element", &Vector::insert_element)
+    	// .def("erase_element", &Vector::erase_element)
+    	// .def("clear", &Vector::clear)
     	// .def("begin", &Vector::begin)
     	// .def("end", &Vector::end)
     	// .def("rbegin", &Vector::rbegin)
