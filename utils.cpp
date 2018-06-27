@@ -37,10 +37,10 @@ public:
 		*(this) /= scalar;
 	}
 	void add(Vector vec) {
-		*(this) += vec
+		*(this) += vec;
 	}
 	void sub(Vector vec) {
-		*(this) -= vec
+		*(this) -= vec;
 	}
 
 
@@ -67,7 +67,10 @@ BOOST_PYTHON_MODULE(utils)
     	.def("end", &Vector::end_it)
     	.def("rbegin", &Vector::rbegin_it)
     	.def("rend", &Vector::rend_it)
-    	.def("test", &Vector::test)
+    	.def("mul", &Vector::mul)
+    	.def("div", &Vector::div)
+    	.def("add", &Vector::add)
+    	.def("sub", &Vector::sub)
     ;
 
     class_<Iter>("Iterator");
