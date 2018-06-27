@@ -34,11 +34,10 @@ BOOST_PYTHON_MODULE(utils)
     	.def("clear", &Vector::clear)
     	.def("__getitem__", &Vector::get_item)
     	.def("__setitem__", &Vector::set_item)
-    	// .def("begin", &Vector::begin)
-    	// .def("end", &Vector::end)
+    	.def("begin", &Vector::begin)
+    	.def("end", &Vector::end)
     	// .def("rbegin", &Vector::rbegin)
     	// .def("rend", &Vector::rend)
-    	//.def(vector_indexing_suite<std::vector<double>>())
     ;
 }
 
