@@ -30,6 +30,11 @@ public:
 	RevIter rend_it() {return (*this).rend();}
 
 
+	void test(double val) {
+		*(this) *= val;
+	}
+
+
 	// Arithemetic operators
 	Vector& operator*= (double scalar) {
 		(*this) *= scalar;
@@ -67,6 +72,8 @@ BOOST_PYTHON_MODULE(utils)
     	.def("rend", &Vector::rend_it)
     	.def(self *= double())
     	.def(self /= double())
+
+    	.def("test", &Vector::test)
     ;
 
     class_<Iter>("Iterator");
