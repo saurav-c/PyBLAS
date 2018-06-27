@@ -12,6 +12,9 @@ public:
 	Vector(const Vector& v) : BaseVector(v) {}
 
 	void insert(unsigned int index, double value) {(*this).insert_element(index, value);}
+
+	void set_item(unsigned int index, double value) {(*this)(index) = value;}
+	double get_item(unsigned int index) {return (*this)(index);}
 };
 
 
