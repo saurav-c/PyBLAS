@@ -10,6 +10,8 @@ public:
 	Vector() : BaseVector() {}
 	Vector(unsigned int size) : BaseVector(size) {}
 	Vector(const Vector& v) : BaseVector(v) {}
+
+	void insert_el(unsigned int index, double value) {this.insert_element(index, value)}
 };
 
 
@@ -24,7 +26,7 @@ BOOST_PYTHON_MODULE(utils)
     	.def("max_size", &Vector::max_size)
     	.def("empty", &Vector::empty)
     	.def("swap", &Vector::swap)
-    	// .def("insert_element", &Vector::insert_element)
+    	.def("insert_element", &Vector::insert_el)
     	// .def("erase_element", &Vector::erase_element)
     	// .def("clear", &Vector::clear)
     	// .def("begin", &Vector::begin)
