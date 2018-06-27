@@ -24,7 +24,10 @@ public:
 	RevIter rbegin_it() {return (*this).rbegin();}
 	RevIter rend_it() {return (*this).rend();}
 
-	void test(double val) {(*this) *= val;}
+
+	// Arithemetic operators
+	Vector operator*=(double scalar) {return (*this) *= scalar;}
+	Vector operator/=(double scalar) {return (*this) /= scalar;}
 
 
 
@@ -51,7 +54,8 @@ BOOST_PYTHON_MODULE(utils)
     	.def("end", &Vector::end_it)
     	.def("rbegin", &Vector::rbegin_it)
     	.def("rend", &Vector::rend_it)
-	.def("test", &Vector::test)
+    	.def(self *= double())
+    	.def(self /= double())
     ;
 
     class_<Iter>("Iterator");
