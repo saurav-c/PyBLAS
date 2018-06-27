@@ -5,6 +5,7 @@ using namespace boost::python;
 
 typedef boost::numeric::ublas::vector<double> BaseVector;
 typedef BaseVector::iterator Iter;
+typedef BaseVector::reverse_iterator RevIter;
 
 
 class Vector: public BaseVector {
@@ -17,7 +18,11 @@ public:
 
 	void set_item(unsigned int index, double value) {(*this)(index) = value;}
 	double get_item(unsigned int index) {return (*this)(index);}
+	
 	Iter begin_it() {return (*this).begin();}
+	Iter end_it() {return (*this).end();}
+	RevIter rbegin_it() {return (*this).rbegin();}
+	RevIter rend_it() {return (*this).rend();}
 };
 
 
@@ -38,9 +43,9 @@ BOOST_PYTHON_MODULE(utils)
     	.def("__getitem__", &Vector::get_item)
     	.def("__setitem__", &Vector::set_item)
     	.def("begin", &Vector::begin_it)
-    	// .def("end", &Vector::end)
-    	// .def("rbegin", &Vector::rbegin)
-    	// .def("rend", &Vector::rend)
+    	.def("end", &Vector::end_it)
+    	.def("rbegin", &Vector::rbegin_it)
+    	.def("rend", &Vector::rend_it)
     ;
 
     class_<Iter>("Iterator");
