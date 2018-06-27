@@ -1,6 +1,11 @@
 #include <boost/python.hpp>
 #include <boost/numeric/ublas/vector.hpp>
 
+#include <boost/python/module.hpp>
+#include <boost/python/class.hpp>
+#include <boost/python/operators.hpp>
+#include <boost/operators.hpp>
+
 using namespace boost::python;
 
 typedef boost::numeric::ublas::vector<double> BaseVector;
