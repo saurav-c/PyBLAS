@@ -69,7 +69,7 @@ BOOST_PYTHON_MODULE(utils)
     	.def("div", &Vector::div)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
-    	.def("inner_prod", boost::numeric::ublas::inner_prod)
+    	.def("inner_prod", inner_prod)
     ;
 
     class_<Iter>("Iterator");
