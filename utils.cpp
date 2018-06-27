@@ -1,5 +1,6 @@
 #include <boost/python.hpp>
 #include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/vector_expression.hpp>
 
 #include <boost/python/module.hpp>
 #include <boost/python/class.hpp>
