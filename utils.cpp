@@ -31,8 +31,14 @@ public:
 
 
 	// Arithemetic operators
-	Vector operator*=(double scalar) {return (*this) *= scalar;}
-	Vector operator/=(double scalar) {return (*this) /= scalar;}
+	Vector& operator*= (double scalar) {
+		(*this) *= scalar;
+		return *this;
+	}
+	Vector& operator/= (double scalar) {
+		(*this) /= scalar;
+		return *this;
+	}
 
 
 
