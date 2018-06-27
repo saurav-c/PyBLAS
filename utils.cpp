@@ -45,6 +45,10 @@ public:
 	}
 };
 
+double ip(const Vector& a, const Vector& b) {
+	return inner_prod(a, b);
+}
+
 
 
 BOOST_PYTHON_MODULE(utils)
@@ -70,8 +74,8 @@ BOOST_PYTHON_MODULE(utils)
     	.def("div", &Vector::div)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
-    	.def("inner_prod", inner_prod)
     ;
+    	def("inner_prod", ip);
 
     class_<Iter>("Iterator");
 }
