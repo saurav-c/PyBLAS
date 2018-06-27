@@ -23,7 +23,7 @@ BOOST_PYTHON_MODULE(utils)
     	// .def("end", &Vector::end)
     	// .def("rbegin", &Vector::rbegin)
     	// .def("rend", &Vector::rend)
-    	.def(vector_indexing_suite<std::vector<double>>())
+    	//.def(vector_indexing_suite<std::vector<double>>())
     ;
 }
 
