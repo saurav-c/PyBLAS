@@ -42,8 +42,6 @@ public:
 	void sub(Vector vec) {
 		*(this) -= vec;
 	}
-
-
 };
 
 
@@ -71,6 +69,7 @@ BOOST_PYTHON_MODULE(utils)
     	.def("div", &Vector::div)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
+    	.def("inner_prod", boost::numeric::ublas::inner_prod)
     ;
 
     class_<Iter>("Iterator");
