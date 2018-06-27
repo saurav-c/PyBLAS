@@ -18,7 +18,7 @@ BOOST_PYTHON_MODULE(utils)
     	.def("resize", &Vector::resize)
     	.def("max_size", &Vector::max_size)
     	.def("empty", &Vector::empty)
-    	.def("__getitem__", &Vector::operator, arg("index"),
+    	.def("__getitem__", &Vector::operator[], arg("index"),
     	return_internal_reference<>())
     	
     ;
