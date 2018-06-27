@@ -9,8 +9,8 @@ class Vector: public BaseVector {
 public: 
 	Vector() : BaseVector() {}
 	Vector(unsigned int size) : BaseVector(size) {}
-	Vector(Vector v) : BaseVector(&v) {}
-}
+	Vector(const Vector& v) : BaseVector(v) {}
+};
 
 
 
