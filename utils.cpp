@@ -11,7 +11,7 @@ public:
 	Vector(unsigned int size) : BaseVector(size) {}
 	Vector(const Vector& v) : BaseVector(v) {}
 
-	void insert_el(unsigned int index, double value) {this.insert_element(index, value)}
+	void insert_el(unsigned int index, double value) {(*this).insert_element(index, value);}
 };
 
 
