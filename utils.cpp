@@ -29,9 +29,18 @@ public:
 	RevIter rbegin_it() {return (*this).rbegin();}
 	RevIter rend_it() {return (*this).rend();}
 
-
-	void test(double val) {
-		*(this) *= val;
+	// TODO: Change these for natural command operators: + - * /
+	void mul(double scalar) {
+		*(this) *= scalar;
+	}
+	void div(double scalar) {
+		*(this) /= scalar;
+	}
+	void add(Vector vec) {
+		*(this) += vec
+	}
+	void sub(Vector vec) {
+		*(this) -= vec
 	}
 
 
