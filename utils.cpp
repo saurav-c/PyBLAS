@@ -16,19 +16,6 @@ typedef BaseVector::reverse_iterator RevIter;
 
 typedef boost::numeric::ublas::matrix<double> BaseMatrix;
 
-typedef boost::numeric::ublas::vector_matrix_binary<boost::numeric::ublas::vector<double, 
-boost::numeric::ublas::unbounded_array<double, std::allocator<double> > >, 
-boost::numeric::ublas::vector<double, boost::numeric::ublas::unbounded_array<double, std::allocator<double> > >, 
-boost::numeric::ublas::scalar_multiplies<double, double> > Vector_Matrix;
-
-typedef boost::numeric::ublas::matrix_vector_binary1<boost::numeric::ublas::matrix<double, 
-boost::numeric::ublas::basic_row_major<unsigned long, long>, 
-boost::numeric::ublas::unbounded_array<double, std::allocator<double> > >, 
-boost::numeric::ublas::vector<double, boost::numeric::ublas::unbounded_array<double, std::allocator<double> > >, 
-boost::numeric::ublas::matrix_vector_prod1<boost::numeric::ublas::matrix<double, 
-boost::numeric::ublas::basic_row_major<unsigned long, long>, boost::numeric::ublas::unbounded_array<double, 
-std::allocator<double> > >, boost::numeric::ublas::vector<double, boost::numeric::ublas::unbounded_array<double, 
-std::allocator<double> > >, double> > Matrix_Vector;
 
 
 
@@ -80,16 +67,19 @@ double ip(const Vector& a, const Vector& b) {
     return inner_prod(a, b);
 }
 
-auto op(const Vector& a, const Vector& b) {
-    return outer_prod(a, b);
+Matrix op(const Vector& a, const Vector& b) {
+    Matrix m = outer_prod(a, b);
+    return m;
 }
 
-auto prod1(const Matrix& m, const Vector& v) {
-    return prod(m, v);
+Matrix prod1(const Matrix& m, const Vector& v) {
+    Matrix m = prod(m, v);
+    return m;
 }
 
-auto prod2(const Matrix& m, const Matrix& n) {
-    return prod(m, n);
+Matrix prod2(const Matrix& m, const Matrix& n) {
+    Matrix m = prod(m, n);
+    return m;
 }
 
 
@@ -137,12 +127,6 @@ BOOST_PYTHON_MODULE(utils)
     	.def("rows", &Matrix::size1)
     	.def("cols", &Matrix::size2)
     	.def("clear", &Matrix::clear)
-    ;
-
-    class_<Vector_Matrix>("Vector_Matrix")
-    ;
-
-    class_<Matrix_Vector>("Matrix_Vector")
     ;
 }
 
