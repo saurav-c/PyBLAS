@@ -10,8 +10,6 @@
 
 using namespace boost::python;
 
-namespace ublas=boost::numeric::ublas;
-
 typedef boost::numeric::ublas::vector<double> BaseVector;
 typedef BaseVector::iterator Iter;
 typedef BaseVector::reverse_iterator RevIter;
@@ -65,24 +63,23 @@ public:
 };
 
 
-// double ip(const Vector& a, const Vector& b) {
-//     return inner_prod(a, b);
-// }
+double ip(const Vector& a, const Vector& b) {
+    return inner_prod(a, b);
+}
 
-// Matrix op(const Vector& a, const Vector& b) {
-//     Matrix m = outer_prod(a, b);
-//     return m;
-// }
+Matrix op(const Vector& a, const Vector& b) {
+    BaseMatrix mat = outer_prod(a, b);
+    return mat;
+}
 
-// Matrix prod1(const Matrix& m, const Vector& v) {
-//     Matrix m = prod(m, v);
-//     return m;
-// }
+Matrix prod1(const Matrix& m, const Vector& v) {
+    BaseMatrix mat = prod(m, v);
+    return mat;
+}
 
 Matrix prod2(const Matrix& m, const Matrix& n) {
-    Matrix M;
-    M = ublas::prod(m, n);
-    return M;
+    BaseMatrix mat = prod(m, n);
+    return mat;
 }
 
 
