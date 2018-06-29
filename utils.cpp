@@ -80,7 +80,7 @@ public:
 // }
 
 Matrix prod2(const Matrix& m, const Matrix& n) {
-    Matrix() M;
+    Matrix M;
     M = ublas::prod(m, n);
     return M;
 }
