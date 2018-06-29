@@ -92,7 +92,7 @@ Matrix prod2(const Matrix& m, const Matrix& n) {
 
 
 
-BOOST_PYTHON_MODULE(utils)
+BOOST_PYTHON_MODULE(pyblas)
 {
     class_<Vector, Vector*>("Vector")
     	.def(init<unsigned int>())
