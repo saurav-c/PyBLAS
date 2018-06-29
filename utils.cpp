@@ -1,6 +1,7 @@
 #include <boost/python.hpp>
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
+#include <boost/numeric/ublas/matrix.hpp>
 
 #include <boost/python/module.hpp>
 #include <boost/python/class.hpp>
@@ -12,6 +13,8 @@ using namespace boost::python;
 typedef boost::numeric::ublas::vector<double> BaseVector;
 typedef BaseVector::iterator Iter;
 typedef BaseVector::reverse_iterator RevIter;
+
+typedef boost::numeric::ublas::matrix<double> BaseMatrix;
 
 
 class Vector: public BaseVector {
@@ -49,6 +52,22 @@ double ip(const Vector& a, const Vector& b) {
 	return inner_prod(a, b);
 }
 
+double op(const Vector& a, const Vector& b) {
+	return outer_prod(a, b);
+}
+
+
+class Matrix: public BaseMatrix {
+public:
+	Matrix() : BaseMatrix() {}
+	Matrix(unsigned int s1, unsigned int s2) : BaseMatrix(s1, s2) {}
+	Matrix(const Matrix& mat) : BaseMatrix(mat) {}
+
+    double get(unsigned int row, unsigned int col) {return (*this)(row, col);}
+    void set(unsigned int row, unsigned int col, double val) {(*this)(row, col) = val;}
+
+
+}
 
 
 BOOST_PYTHON_MODULE(utils)
@@ -75,8 +94,22 @@ BOOST_PYTHON_MODULE(utils)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
     ;
-    	def("inner_prod", ip);
+
+    def("inner_prod", ip);
+    def("outer_prod", op);
 
     class_<Iter>("Iterator");
+
+
+    class_<Matrix>("Matrix")
+    	.def(init<unsigned int, unsigned int>())
+    	.def(init<Matrix>())
+        .def("get", &Matrix::get)
+        .def("set", &Matrix::set)
+    	.def("resize", &Matrix::resize)
+    	.def("rows", &Matrix::size1)
+    	.def("cols", &Matrix::size2)
+    	.def("clear", &Matrix::clear)
+    ;
 }
 
