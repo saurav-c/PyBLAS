@@ -65,15 +65,15 @@ double ip(const Vector& a, const Vector& b) {
     return inner_prod(a, b);
 }
 
-Matrix op(const Vector& a, const Vector& b) {
+BaseMatrix op(const Vector& a, const Vector& b) {
     return outer_prod(a, b);
 }
 
-Vector prod1(const Matrix& m, const Vector& v) {
+BaseVector prod1(const Matrix& m, const Vector& v) {
     return prod(m, v);
 }
 
-Matrix prod2(const Matrix& m, const Matrix& n) {
+BaseMatrix prod2(const Matrix& m, const Matrix& n) {
     return prod(m, n);
 }
 
