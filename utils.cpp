@@ -56,6 +56,7 @@ public:
 	Matrix() : BaseMatrix() {}
 	Matrix(unsigned int s1, unsigned int s2) : BaseMatrix(s1, s2) {}
 	Matrix(const Matrix& mat) : BaseMatrix(mat) {}
+    Matrix(const BaseMatrix& mat) : BaseMatrix(mat) {}
 
     double get(unsigned int row, unsigned int col) {return (*this)(row, col);}
     void set(unsigned int row, unsigned int col, double val) {(*this)(row, col) = val;}
