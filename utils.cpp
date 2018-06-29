@@ -52,9 +52,6 @@ double ip(const Vector& a, const Vector& b) {
 	return inner_prod(a, b);
 }
 
-double op(const Vector& a, const Vector& b) {
-	return outer_prod(a, b);
-}
 
 
 class Matrix: public BaseMatrix {
@@ -96,7 +93,6 @@ BOOST_PYTHON_MODULE(utils)
     ;
 
     def("inner_prod", ip);
-    def("outer_prod", op);
 
     class_<Iter>("Iterator");
 
