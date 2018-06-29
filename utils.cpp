@@ -16,8 +16,19 @@ typedef BaseVector::reverse_iterator RevIter;
 
 typedef boost::numeric::ublas::matrix<double> BaseMatrix;
 
-typedef boost::numeric::ublas::vector_matrix_binary Vector_Matrix;
-typedef boost::numeric::ublas::matrix_vector_binary1 Matrix_Vector;
+typedef boost::numeric::ublas::vector_matrix_binary<boost::numeric::ublas::vector<double, 
+boost::numeric::ublas::unbounded_array<double, std::allocator<double> > >, 
+boost::numeric::ublas::vector<double, boost::numeric::ublas::unbounded_array<double, std::allocator<double> > >, 
+boost::numeric::ublas::scalar_multiplies<double, double> > Vector_Matrix;
+
+typedef boost::numeric::ublas::matrix_vector_binary1<boost::numeric::ublas::matrix<double, 
+boost::numeric::ublas::basic_row_major<unsigned long, long>, 
+boost::numeric::ublas::unbounded_array<double, std::allocator<double> > >, 
+boost::numeric::ublas::vector<double, boost::numeric::ublas::unbounded_array<double, std::allocator<double> > >, 
+boost::numeric::ublas::matrix_vector_prod1<boost::numeric::ublas::matrix<double, 
+boost::numeric::ublas::basic_row_major<unsigned long, long>, boost::numeric::ublas::unbounded_array<double, 
+std::allocator<double> > >, boost::numeric::ublas::vector<double, boost::numeric::ublas::unbounded_array<double, 
+std::allocator<double> > >, double> > Matrix_Vector;
 
 
 
