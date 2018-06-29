@@ -63,23 +63,24 @@ public:
 };
 
 
-double ip(const Vector& a, const Vector& b) {
-    return inner_prod(a, b);
-}
+// double ip(const Vector& a, const Vector& b) {
+//     return inner_prod(a, b);
+// }
 
-Matrix op(const Vector& a, const Vector& b) {
-    Matrix m = outer_prod(a, b);
-    return m;
-}
+// Matrix op(const Vector& a, const Vector& b) {
+//     Matrix m = outer_prod(a, b);
+//     return m;
+// }
 
-Matrix prod1(const Matrix& m, const Vector& v) {
-    Matrix m = prod(m, v);
-    return m;
-}
+// Matrix prod1(const Matrix& m, const Vector& v) {
+//     Matrix m = prod(m, v);
+//     return m;
+// }
 
 Matrix prod2(const Matrix& m, const Matrix& n) {
-    Matrix m = prod(m, n);
-    return m;
+    Matrix mat = Matrix();
+    mat = prod(m, n)
+    return mat;
 }
 
 
