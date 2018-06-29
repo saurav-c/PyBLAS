@@ -111,9 +111,9 @@ BOOST_PYTHON_MODULE(utils)
     	.def("sub", &Vector::sub)
     ;
 
-    def("inner_prod", ip);
-    def("outer_prod", op);
-    def("prod1", prod1);
+    // def("inner_prod", ip);
+    // def("outer_prod", op);
+    // def("prod1", prod1);
     def("prod2", prod2);
 
     class_<Iter>("Iterator");
