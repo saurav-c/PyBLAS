@@ -16,6 +16,10 @@ typedef BaseVector::reverse_iterator RevIter;
 
 typedef boost::numeric::ublas::matrix<double> BaseMatrix;
 
+typedef boost::numeric::ublas::vector_matrix_binary Vector_Matrix;
+typedef boost::numeric::ublas::matrix_vector_binary1 Matrix_Vector;
+
+
 
 class Vector: public BaseVector {
 public: 
@@ -122,6 +126,12 @@ BOOST_PYTHON_MODULE(utils)
     	.def("rows", &Matrix::size1)
     	.def("cols", &Matrix::size2)
     	.def("clear", &Matrix::clear)
+    ;
+
+    class_<Vector_Matrix>("Vector_Matrix")
+    ;
+
+    class_<Matrix_Vector>("Matrix_Vector")
     ;
 }
 
