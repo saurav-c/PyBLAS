@@ -2,7 +2,7 @@
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
-#include <boost/numeric/io.hpp>
+#include <boost/numeric/ublas/io.hpp>
 
 #include <boost/python/module.hpp>
 #include <boost/python/class.hpp>
