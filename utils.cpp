@@ -79,7 +79,7 @@ public:
 
 Matrix prod2(const Matrix& m, const Matrix& n) {
     Matrix mat = Matrix();
-    mat = prod(m, n)
+    mat = prod(m, n);
     return mat;
 }
 
