@@ -82,7 +82,7 @@ auto prod2(const Matrix& m, const Matrix& n) {
 
 BOOST_PYTHON_MODULE(utils)
 {
-    class_<Vector>("Vector")
+    class_<Vector, Vector*>("Vector")
     	.def(init<unsigned int>())
     	.def(init<Vector>())
     	.def("size", &Vector::size)
@@ -113,7 +113,7 @@ BOOST_PYTHON_MODULE(utils)
     class_<Iter>("Iterator");
 
 
-    class_<Matrix>("Matrix")
+    class_<Matrix, Matrix*>("Matrix")
     	.def(init<unsigned int, unsigned int>())
     	.def(init<Matrix>())
         .def("get", &Matrix::get)
