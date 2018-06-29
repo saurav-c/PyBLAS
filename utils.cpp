@@ -69,17 +69,17 @@ double ip(const Vector& a, const Vector& b) {
 
 Matrix op(const Vector& a, const Vector& b) {
     BaseMatrix mat = outer_prod(a, b);
-    return mat;
+    return Matrix(mat);
 }
 
 Matrix prod1(const Matrix& m, const Vector& v) {
     BaseMatrix mat = prod(m, v);
-    return mat;
+    return Matrix(mat);
 }
 
 Matrix prod2(const Matrix& m, const Matrix& n) {
     BaseMatrix mat = prod(m, n);
-    return mat;
+    return Matrix(mat);
 }
 
 
