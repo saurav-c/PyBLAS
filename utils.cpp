@@ -67,7 +67,7 @@ public:
     void set(unsigned int row, unsigned int col, double val) {(*this)(row, col) = val;}
 
 
-}
+};
 
 
 BOOST_PYTHON_MODULE(utils)
