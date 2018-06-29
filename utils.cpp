@@ -24,6 +24,7 @@ public:
 	Vector() : BaseVector() {}
 	Vector(unsigned int size) : BaseVector(size) {}
 	Vector(const Vector& v) : BaseVector(v) {}
+	Vector(const BaseVector& v) : BaseVector(v) {}
 
 	void insert(unsigned int index, double value) {(*this).insert_element(index, value);}
 
@@ -73,9 +74,9 @@ Matrix op(const Vector& a, const Vector& b) {
     return Matrix(mat);
 }
 
-Matrix prod1(const Matrix& m, const Vector& v) {
-    BaseMatrix mat = prod(m, v);
-    return Matrix(mat);
+Vector prod1(const Matrix& m, const Vector& v) {
+    BaseVector vec = prod(m, v);
+    return Vector(vec);
 }
 
 Matrix prod2(const Matrix& m, const Matrix& n) {
@@ -113,7 +114,7 @@ BOOST_PYTHON_MODULE(utils)
 
     // def("inner_prod", ip);
     // def("outer_prod", op);
-    // def("prod1", prod1);
+    def("prod1", prod1);
     def("prod2", prod2);
 
     class_<Iter>("Iterator");
