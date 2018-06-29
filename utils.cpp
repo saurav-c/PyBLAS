@@ -52,6 +52,10 @@ double ip(const Vector& a, const Vector& b) {
 	return inner_prod(a, b);
 }
 
+Matrix op(const Vector& a, const Vector& b) {
+    return outer_prod(a, b);
+}
+
 
 
 class Matrix: public BaseMatrix {
@@ -63,8 +67,17 @@ public:
     double get(unsigned int row, unsigned int col) {return (*this)(row, col);}
     void set(unsigned int row, unsigned int col, double val) {(*this)(row, col) = val;}
 
-
 };
+
+Vector prod1(const Matrix& m, const Vector& v) {
+    return prod(m, v);
+}
+
+Matrix prod2(const Matrix& m, const Matrix& n) {
+    return prod(m, n);
+}
+
+
 
 
 BOOST_PYTHON_MODULE(utils)
@@ -93,6 +106,9 @@ BOOST_PYTHON_MODULE(utils)
     ;
 
     def("inner_prod", ip);
+    def("outer_prod", op);
+    def("prod1", prod1);
+    def("prod2", prod2);
 
     class_<Iter>("Iterator");
 
