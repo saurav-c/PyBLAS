@@ -2,6 +2,7 @@
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_expression.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
+#include <boost/numeric/io.hpp>
 
 #include <boost/python/module.hpp>
 #include <boost/python/class.hpp>
@@ -36,6 +37,8 @@ public:
 	RevIter rbegin_it() {return (*this).rbegin();}
 	RevIter rend_it() {return (*this).rend();}
 
+    void print() {std::cout << (*this);}
+
 	// TODO: Change these for natural command operators: + - * /
 	void mul(double scalar) {
 		*(this) *= scalar;
@@ -58,6 +61,8 @@ public:
 	Matrix(unsigned int s1, unsigned int s2) : BaseMatrix(s1, s2) {}
 	Matrix(const Matrix& mat) : BaseMatrix(mat) {}
     Matrix(const BaseMatrix& mat) : BaseMatrix(mat) {}
+
+    void print() {std::cout << (*this);}
 
     double get(unsigned int row, unsigned int col) {return (*this)(row, col);}
     void set(unsigned int row, unsigned int col, double val) {(*this)(row, col) = val;}
@@ -110,6 +115,7 @@ BOOST_PYTHON_MODULE(utils)
     	.def("div", &Vector::div)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
+        .def("print", &Vector::print)
     ;
 
     def("inner_prod", ip);
@@ -129,6 +135,7 @@ BOOST_PYTHON_MODULE(utils)
     	.def("rows", &Matrix::size1)
     	.def("cols", &Matrix::size2)
     	.def("clear", &Matrix::clear)
+        .def("print", &Matrix::print)
     ;
 }
 

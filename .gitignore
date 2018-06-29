@@ -1,1 +1,8 @@
 build/
+# Python 
+*pyc
+__pycache__/
+flask_session
+
+# Sky-specific
+funcs/
