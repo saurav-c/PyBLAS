@@ -10,6 +10,8 @@
 
 using namespace boost::python;
 
+namespace ublas=boost::numeric::ublas;
+
 typedef boost::numeric::ublas::vector<double> BaseVector;
 typedef BaseVector::iterator Iter;
 typedef BaseVector::reverse_iterator RevIter;
@@ -78,9 +80,9 @@ public:
 // }
 
 Matrix prod2(const Matrix& m, const Matrix& n) {
-    Matrix mat = Matrix();
-    mat = prod(m, n);
-    return mat;
+    Matrix() M;
+    M = ublas::prod(m, n);
+    return M;
 }
 
 
