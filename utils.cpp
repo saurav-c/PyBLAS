@@ -48,15 +48,6 @@ public:
 	}
 };
 
-double ip(const Vector& a, const Vector& b) {
-	return inner_prod(a, b);
-}
-
-Matrix op(const Vector& a, const Vector& b) {
-    return outer_prod(a, b);
-}
-
-
 
 class Matrix: public BaseMatrix {
 public:
@@ -68,6 +59,15 @@ public:
     void set(unsigned int row, unsigned int col, double val) {(*this)(row, col) = val;}
 
 };
+
+
+double ip(const Vector& a, const Vector& b) {
+    return inner_prod(a, b);
+}
+
+Matrix op(const Vector& a, const Vector& b) {
+    return outer_prod(a, b);
+}
 
 Vector prod1(const Matrix& m, const Vector& v) {
     return prod(m, v);
