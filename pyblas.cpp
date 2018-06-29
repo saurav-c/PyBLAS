@@ -115,7 +115,7 @@ BOOST_PYTHON_MODULE(pyblas)
     	.def("div", &Vector::div)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
-        .def("print", &Vector::print)
+        .def("show", &Vector::print)
     ;
 
     def("inner_prod", ip);
@@ -135,7 +135,7 @@ BOOST_PYTHON_MODULE(pyblas)
     	.def("rows", &Matrix::size1)
     	.def("cols", &Matrix::size2)
     	.def("clear", &Matrix::clear)
-        .def("print", &Matrix::print)
+        .def("show", &Matrix::print)
     ;
 }
 
