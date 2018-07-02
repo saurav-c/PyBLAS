@@ -28,10 +28,10 @@ RUN sudo apt-get install -y libboost-all-dev
 RUN sudo apt-get install -y libboost-python-dev 
 RUN sudo apt-get install -y python-dev
 
+
 # install pip and setup python dependencies
 RUN apt install -y python-pip
 RUN sudo pip install boto3 cloudpickle Flask Flask-Session pyzmq protobuf requests
-
 COPY . /usr/src/PyBlas
 
 WORKDIR /usr/src/PyBlas

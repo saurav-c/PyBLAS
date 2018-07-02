@@ -7,83 +7,64 @@ class SkyConnection():
     def __init__(self, addr='127.0.0.1', port=7000, pr_type='FS', pr_info={'dir': 'funcs/'}):
         self.service_addr = 'http://' + addr + ":" + str(port)
 
-        pr_dict = { 'type': pr_type, 'info': pr_info }
-        self.provider = utils.create_provider(pr_type, pr_info)
-
         self.session = requests.Session()
-        r = self.session.post(self.service_addr + "/connect", data=cp.dumps(pr_dict))
-
-    def list(self, prefix=None):
-        for fname in self._get_func_list(prefix):
-            print(fname)
-
-    def get(self, name):
-        if name not in self._get_func_list():
-            print("No function found with name '" + name + "'.")
-            print("To view all functions, use the `list` method.")
-            return None
-
-        return SkyFunc(name, self._name_to_handle(name), self)
-
-    def _get_func_list(self, prefix=None):
-        if prefix == None:
-            r = self.session.get(self.service_addr + "/list")
-        else:
-            r = self.session.get(self.service_addr + "/list/" + prefix)
-        return cp.loads(r.content)
-
-
-    def _name_to_handle(self, name):
-        return name
-
-    def exec_func(self, handle, args):
-        args_bin = cp.dumps(args)
-
-        r = self.session.post(self.service_addr + "/" + handle, data=args_bin)
-        return cp.loads(r.content)
-
-    def register(self, func, name):
-        self.session.post(self.service_addr + "/create/" + name, data=cp.dumps(func))
-
-    def deregister(self, name):
-        self.session.post(self.service_addr + "/remove/" + name)
+        r = self.session.post(self.service_addr + "/connect")
 
 
     def vector(self, args):
         args_bin = cp.dumps(args)
 
         r = self.session.post(self.service_addr + "/vector", data=args_bin)
-        return cp.loads(r.content)
+        return Vec_Resp(cp.loads(r.data), self.service_addr, self.session)
+
+
+    def matrix(self, args):
+        args_bin = cp.dumps(args)
+
+        r = self.session.post(self.service_addr + "/matrix", data=args_bin)
+        return Mat_Resp(cp.loads(r.data), self.service_addr, self.session)
 
 
 
-class SkyFuture():
-    def __init__(self, obj_id, conn):
-        self.obj_id = obj_id
-        self.conn = conn
+class Vec_Resp():
+    def __init__(self, id, addr, session):
+        self.id = id
+        self.service_addr = addr
+        self.session = session
 
-    def get(self):
-        obj = utils.get_provider(self.conn.provider).get(self.obj_id)
+    def __getitem__(self, index):
+        args = [index]
+        fname = '__getitem__'
+        call = [self.id, fname, args]
+        call_bin = cp.dumps(call)
 
-        while not obj:
-            obj = utils.get_provider(self.conn.provider).get(self.obj_id)
+        r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
+        return cp.loads(r.data)
 
-        return cp.loads(obj)
+    def __setitem__(self, index, value):
+        args = [index, value]
+        fname = '__setitem__'
+        call = [self.id, fname, args]
+        call_bin = cp.dumps(call)
 
-class SkyFunc():
-    def __init__(self, name, func_handle, conn):
-        self.name = name
-        self.handle = func_handle
-        self._conn = conn
+        r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
 
-    def __call__(self, *args):
-        obj_id = self._conn.exec_func(self.handle, args)
-        return SkyFuture(obj_id, self._conn)
 
-class SkyReference():
-    def __init__(self, key, deserialize):
-        self.key = key
-        self.deserialize = deserialize
+    def size():
+        args = []
+        fname = 'size'
+        call = [self.id, fname, args]
+        call_bin = cp.dumps(call)
+
+        r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
+        return cp.loads(r.data)
+
+class Mat_Resp():
+    def __init__(self, id, addr, session):
+        self.id = id
+        self.service_addr = addr
+        self.session = session
+
 
 def connect(addr='127.0.0.1', port=7000, pr_type='FS', pr_info={'dir': 'funcs/'}):
     return SkyConnection(addr, port, pr_type, pr_info)
