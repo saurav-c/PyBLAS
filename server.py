@@ -9,6 +9,10 @@ import utils
 
 app = flask.Flask(__name__)
 
+@app.route('/')
+def hello():
+    print("Hello World")
+
 @app.route('/connect', methods=['POST'])
 def connect():
     pr_data = cp.loads(flask.request.get_data())

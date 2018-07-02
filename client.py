@@ -77,5 +77,5 @@ class SkyReference():
         self.key = key
         self.deserialize = deserialize
 
-def connect(addr=None, port=7000, pr_type='FS', pr_info={'dir': 'funcs/'}):
+def connect(addr='http://127.0.0.1', port=7000, pr_type='FS', pr_info={'dir': 'funcs/'}):
     return SkyConnection(addr, port, pr_type, pr_info)

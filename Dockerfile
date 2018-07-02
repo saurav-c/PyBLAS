@@ -35,5 +35,7 @@ RUN cd usr/src && git clone https://github.com/saurav-c/PyBLAS.git
 RUN apt install -y python-pip
 RUN sudo pip install boto3 cloudpickle Flask Flask-Session pyzmq protobuf requests
 
+# Setup port
+EXPOSE 7000
 
 
