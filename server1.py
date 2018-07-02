@@ -7,6 +7,8 @@ from threading import Thread
 import uuid
 import utils
 
+import pyblas
+
 app = flask.Flask(__name__)
 
 
@@ -18,6 +20,18 @@ def connect():
 
     flask.session['provider'] = utils.create_provider(pr_type, info)
     return construct_response()
+
+
+
+
+@app.route('/vector', methods=['POST'])
+def vector():
+    args = cp.loads(flask.request.get_data())
+    vec = pyblas.Vector(args)
+
+    return construct_response(vec)
+
+
 
 @app.route('/create/<funcname>', methods=['POST'])
 def create_func(funcname):

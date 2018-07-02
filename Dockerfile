@@ -32,11 +32,18 @@ RUN sudo apt-get install -y python-dev
 RUN apt install -y python-pip
 RUN sudo pip install boto3 cloudpickle Flask Flask-Session pyzmq protobuf requests
 
-# Setup repo
-RUN cd usr/src && git clone https://github.com/saurav-c/PyBLAS.git
+COPY . /usr/src/PyBlas
 
-EXPOSE 7000
-CMD ["python", "server.py"]
+WORKDIR /usr/src/PyBlas
 
+# Compile Boost libraries
+RUN ./update.sh
+RUN mv build/lib.linux-x86_64-2.7/pyblas.so /usr/src/PyBlas
+
+RUN pip install -r requirements.txt
+
+ENTRYPOINT ["python"]
+
+CMD ["server1.py"]
 
 

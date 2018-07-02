@@ -49,6 +49,14 @@ class SkyConnection():
         self.session.post(self.service_addr + "/remove/" + name)
 
 
+    def vector(self, args):
+        args_bin = cp.dumps(args)
+
+        r = self.session.post(self.service_addr + "/vector", data=args_bin)
+        return cp.loads(r.content)
+
+
+
 class SkyFuture():
     def __init__(self, obj_id, conn):
         self.obj_id = obj_id
