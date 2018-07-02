@@ -28,16 +28,15 @@ RUN sudo apt-get install -y libboost-all-dev
 RUN sudo apt-get install -y libboost-python-dev 
 RUN sudo apt-get install -y python-dev
 
-# Setup repo
-RUN cd usr/src && git clone https://github.com/saurav-c/PyBLAS.git
-
 # install pip and setup python dependencies
 RUN apt install -y python-pip
 RUN sudo pip install boto3 cloudpickle Flask Flask-Session pyzmq protobuf requests
 
-WORKDIR /usr/src/PyBlas
-RUN pip install -r requirements.txt
-ENTRYPOINT["python"]
-CMD ["server.py"]
+# Setup repo
+RUN cd usr/src && git clone https://github.com/saurav-c/PyBLAS.git
+
+EXPOSE 7000
+CMD ["python", "server.py"]
+
 
 
