@@ -7,8 +7,6 @@ from threading import Thread
 import uuid
 import utils
 
-OBJ_ID = 0
-
 import pyblas
 
 app = flask.Flask(__name__)
@@ -18,6 +16,7 @@ app = flask.Flask(__name__)
 def connect():
 
     flask.session['dict'] = {}
+    flask.session['OBJ_ID'] = 0
     return construct_response()
 
 
@@ -29,10 +28,11 @@ def vector():
     #vec = pyblas.Vector(args)
 
     #flask.session['dict'][OBJ_ID] = vec
-    flask.session['dict'][OBJ_ID] = "vec"
+    key = flask.session['OBJ_ID']
+    flask.session['dict'][key] = "vec"
 
-    resp = OBJ_ID
-    OBJ_ID += 1
+    resp = key
+    flask.session['OBJ_ID'] += 1
 
     return construct_response(resp)
 
@@ -74,7 +74,6 @@ def return_error(error=''):
     return resp
 
 def run():
-    OBJ_ID = 0
     app.secret_key = "this is a secret key"
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)
