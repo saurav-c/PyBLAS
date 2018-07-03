@@ -14,6 +14,15 @@
 #include <boost/python/tuple.hpp>
 #include <boost/python/extract.hpp>
 
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/string.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/smart_ptr/make_shared.hpp>
+
+#include <sstream>
+#include <boost/archive/text_iarchive.hpp>
+
 using namespace boost::python;
 
 typedef boost::numeric::ublas::vector<double> BaseVector;
@@ -57,8 +66,66 @@ public:
 	void sub(Vector vec) {
 		*(this) -= vec;
 	}
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & boost::serialization::base_object<BaseVector>(*this);
+    }
 };
 
+
+struct world_pickle_suite : boost::python::pickle_suite
+{
+    static
+    boost::python::tuple
+    getinitargs(const Vector& v)
+    {
+        return boost::python::make_tuple(v.size());
+    }
+
+
+    static
+    boost::python::tuple
+    getstate(const Vector& v)
+    {
+        std::ostringstream oss;
+        {
+            boost::archive::text_oarchive oa(oss);
+            oa << v;
+        }
+        return boost::python::make_tuple(oss);
+    }
+
+    static
+    void
+    setstate(Vector& v, boost::python::tuple state)
+    {
+        using namespace boost::python;
+        if (len(state) != 1) 
+        {
+            PyErr_SetObject(PyExc_ValueError,
+                          ("expected 1-item tuple in call to __setstate__; got %s"
+                           % state).ptr()
+              );
+          throw_error_already_set();
+        }
+
+        Vector new_vec;
+
+        std::ostringstream oss = extract<std::ostringstream>(state[0])
+        std::istringstream iss(oss.str())
+        {
+            boost::archive::text_iarchive ia(iss);
+            ia >> new_vec;
+        }
+
+        v = new_vec;
+
+        double first = extract<double>(state[0]);
+        v.set_item(0, first);
+    }
+};
 
 
 class Matrix: public BaseMatrix {
@@ -122,6 +189,7 @@ BOOST_PYTHON_MODULE(pyblas)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
         .def("show", &Vector::print)
+        .def_pickle(world_pickle_suite())
     ;
 
     def("inner_prod", ip);
