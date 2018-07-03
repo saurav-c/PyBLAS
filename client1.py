@@ -11,7 +11,7 @@ class SkyConnection():
         r = self.session.post(self.service_addr + "/connect")
 
 
-    def vector(self, args):
+    def vector(self, args=[]):
         args_bin = cp.dumps(args)
 
         r = self.session.post(self.service_addr + "/vector", data=args_bin)
@@ -19,7 +19,7 @@ class SkyConnection():
         return Vec_Resp(cp.loads(r.content), self.service_addr, self.session)
 
 
-    def matrix(self, args):
+    def matrix(self, args=[]):
         args_bin = cp.dumps(args)
 
         r = self.session.post(self.service_addr + "/matrix", data=args_bin)
@@ -33,35 +33,43 @@ class Vec_Resp():
         self.service_addr = addr
         self.session = session
 
-    def __getitem__(self, index):
-        args = [index]
-        fname = '__getitem__'
-        call = [self.id, fname, args]
-        call_bin = cp.dumps(call)
 
+    def request(funcname, args=[]):
+        call = [self.id, funcname, args]
+        call_bin = cp.dumps(call)
         r = self.session.post(self.service_addr + "/request", data=call_bin)
+
+        return r
+
+
+    def __getitem__(self, index):
+        r = request('__getitem__', [index])
         return cp.loads(r.content)
 
-    def __setitem__(self, index, value):
-        args = [index, value]
-        fname = '__setitem__'
-        call = [self.id, fname, args]
-        call_bin = cp.dumps(call)
 
-        r = self.session.post(self.service_addr + "/request", data=call_bin)
+    def __setitem__(self, index, value):
+        r = request('__setitem__', [index, value])
 
 
     def size(self):
-        args = []
-        fname = 'size'
-        call = [self.id, fname, args]
-        call_bin = cp.dumps(call)
+        r = request('size')
+        return cp.loads(r.content)
 
-        r = self.session.post(self.service_addr + "/request", data=call_bin)
+
+    def resize(self, size, save=True):
+        r = request('resize', [size, save])
+
+
+    def max_size(self):
+        r = request('max_size')
+        return cp.loads(r.content)
+
+    def empty(self):
+        r = request('empty')
+
+    def swap(self, other):
+        r = request('swap', [other])
         
-        #return cp.loads(r.content)
-        return r.content
-
 
 
 class Mat_Resp():

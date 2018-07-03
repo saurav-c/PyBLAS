@@ -68,6 +68,11 @@ public:
 		*(this) -= vec;
 	}
 
+    void swap(Vector& v) {
+        *(this).swap(v);
+    }
+
+
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version)
     {
