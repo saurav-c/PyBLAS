@@ -22,6 +22,7 @@
 
 #include <sstream>
 #include <boost/archive/text_iarchive.hpp>
+#include <string>
 
 using namespace boost::python;
 
@@ -75,6 +76,7 @@ public:
 };
 
 
+
 struct world_pickle_suite : boost::python::pickle_suite
 {
     static
@@ -94,7 +96,10 @@ struct world_pickle_suite : boost::python::pickle_suite
             boost::archive::text_oarchive oa(oss);
             oa << v;
         }
-        return boost::python::make_tuple(oss);
+        
+        std::string bytes = oss.str();
+
+        return boost::python::make_tuple(bytes);
     }
 
     static
@@ -113,17 +118,16 @@ struct world_pickle_suite : boost::python::pickle_suite
 
         Vector new_vec;
 
-        std::ostringstream oss = extract<std::ostringstream>(state[0]);
-        std::istringstream iss(oss.str());
+        std::string bytes = extract<std::string>(state[0]);
+
+        // std::ostringstream oss = extract<std::ostringstream>(state[0]).str();
+        std::istringstream iss(bytes);
         {
             boost::archive::text_iarchive ia(iss);
             ia >> new_vec;
         }
 
         v = new_vec;
-
-        double first = extract<double>(state[0]);
-        v.set_item(0, first);
     }
 };
 
