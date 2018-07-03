@@ -16,8 +16,7 @@ class SkyConnection():
 
         r = self.session.post(self.service_addr + "/vector", data=args_bin)
         
-        return r.content
-        #return Vec_Resp(cp.loads(r.content), self.service_addr, self.session)
+        return Vec_Resp(cp.loads(r.content), self.service_addr, self.session)
 
 
     def matrix(self, args):
@@ -60,6 +59,8 @@ class Vec_Resp():
 
         r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
         return cp.loads(r.content)
+
+        
 
 class Mat_Resp():
     def __init__(self, id, addr, session):

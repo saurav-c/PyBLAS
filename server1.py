@@ -25,11 +25,10 @@ def connect():
 @app.route('/vector', methods=['POST'])
 def vector():
     args = cp.loads(flask.request.get_data())
-    #vec = pyblas.Vector(args)
+    vec = pyblas.Vector(args)
 
-    #flask.session['dict'][OBJ_ID] = vec
     key = flask.session['OBJ_ID']
-    flask.session['dict'][key] = "vec"
+    flask.session['dict'][key] = vec
 
     resp = key
     flask.session['OBJ_ID'] += 1
@@ -77,7 +76,6 @@ def run():
     app.secret_key = "this is a secret key"
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)
-    app.debug = True
     app.run(threaded=True, host='0.0.0.0', port=7000)
 
 
