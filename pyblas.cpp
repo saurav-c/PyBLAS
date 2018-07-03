@@ -60,41 +60,6 @@ public:
 };
 
 
-struct world_pickle_suite : boost::python::pickle_suite
-{
-    static
-    boost::python::tuple
-    getinitargs(const Vector& v)
-    {
-        return boost::python::make_tuple(v.size());
-    }
-
-
-    static
-    boost::python::tuple
-    getstate(const Vector& v)
-    {
-        return boost::python::make_tuple(v(0));
-    }
-
-    static
-    void
-    setstate(Vector& v, boost::python::tuple state)
-    {
-        using namespace boost::python;
-        if (len(state) != 1) 
-        {
-            PyErr_SetObject(PyExc_ValueError,
-                          ("expected 1-item tuple in call to __setstate__; got %s"
-                           % state).ptr()
-              );
-          throw_error_already_set();
-        }
-        double first = extract<double>(state[0]);
-        v.set_item(0, first);
-    }
-};
-
 
 class Matrix: public BaseMatrix {
 public:
@@ -157,7 +122,6 @@ BOOST_PYTHON_MODULE(pyblas)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
         .def("show", &Vector::print)
-        .def_pickle(world_pickle_suite())
     ;
 
     def("inner_prod", ip);
