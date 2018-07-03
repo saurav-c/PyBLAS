@@ -39,7 +39,7 @@ class Vec_Resp():
         call = [self.id, fname, args]
         call_bin = cp.dumps(call)
 
-        r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
+        r = self.session.post(self.service_addr + "/request", data=call_bin)
         return cp.loads(r.content)
 
     def __setitem__(self, index, value):
@@ -48,7 +48,7 @@ class Vec_Resp():
         call = [self.id, fname, args]
         call_bin = cp.dumps(call)
 
-        r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
+        r = self.session.post(self.service_addr + "/request", data=call_bin)
 
 
     def size(self):
@@ -57,10 +57,12 @@ class Vec_Resp():
         call = [self.id, fname, args]
         call_bin = cp.dumps(call)
 
-        r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
-        return cp.loads(r.content)
-
+        r = self.session.post(self.service_addr + "/request", data=call_bin)
         
+        #return cp.loads(r.content)
+        return r.content
+
+
 
 class Mat_Resp():
     def __init__(self, id, addr, session):

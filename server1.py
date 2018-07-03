@@ -36,7 +36,7 @@ def vector():
     return construct_response(resp)
 
 
-app.route('/vector/request', methods=['POST'])
+app.route('/request', methods=['POST'])
 def vector_request():
     call = cp.loads(flask.request.get_data())
     obj_id = call[0]
