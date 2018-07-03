@@ -68,8 +68,8 @@ public:
 		*(this) -= vec;
 	}
 
-    void swap(Vector& v) {
-        *(this).swap(v);
+    void swapper(Vector& v) {
+        (*this).swap(v);
     }
 
 
@@ -183,7 +183,7 @@ BOOST_PYTHON_MODULE(pyblas)
     	.def("resize", &Vector::resize)
     	.def("max_size", &Vector::max_size)
     	.def("empty", &Vector::empty)
-    	.def("swap", &Vector::swap)
+    	.def("swap", &Vector::swapper)
     	.def("insert_element", &Vector::insert)
     	.def("erase_element", &Vector::erase_element)
     	.def("clear", &Vector::clear)
