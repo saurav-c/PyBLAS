@@ -113,8 +113,8 @@ struct world_pickle_suite : boost::python::pickle_suite
 
         Vector new_vec;
 
-        std::ostringstream oss = extract<std::ostringstream>(state[0])
-        std::istringstream iss(oss.str())
+        std::ostringstream oss = extract<std::ostringstream>(state[0]);
+        std::istringstream iss(oss.str());
         {
             boost::archive::text_iarchive ia(iss);
             ia >> new_vec;

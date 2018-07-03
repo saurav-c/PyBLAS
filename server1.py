@@ -28,7 +28,7 @@ def vector():
     vec = pyblas.Vector(args)
 
     key = flask.session['OBJ_ID']
-    flask.session['dict'][key] = 'vec'
+    flask.session['dict'][key] = vec
 
     resp = key
     flask.session['OBJ_ID'] += 1
