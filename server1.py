@@ -26,9 +26,10 @@ def connect():
 @app.route('/vector', methods=['POST'])
 def vector():
     args = cp.loads(flask.request.get_data())
-    vec = pyblas.Vector(args)
+    #vec = pyblas.Vector(args)
 
-    flask.session['dict'][OBJ_ID] = vec
+    #flask.session['dict'][OBJ_ID] = vec
+    flask.session['dict'][OBJ_ID] = "vec"
 
     resp = OBJ_ID
     OBJ_ID += 1

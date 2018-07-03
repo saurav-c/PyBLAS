@@ -15,14 +15,14 @@ class SkyConnection():
         args_bin = cp.dumps(args)
 
         r = self.session.post(self.service_addr + "/vector", data=args_bin)
-        return Vec_Resp(cp.loads(r.data), self.service_addr, self.session)
+        return Vec_Resp(cp.loads(r.content), self.service_addr, self.session)
 
 
     def matrix(self, args):
         args_bin = cp.dumps(args)
 
         r = self.session.post(self.service_addr + "/matrix", data=args_bin)
-        return Mat_Resp(cp.loads(r.data), self.service_addr, self.session)
+        return Mat_Resp(cp.loads(r.content), self.service_addr, self.session)
 
 
 
@@ -39,7 +39,7 @@ class Vec_Resp():
         call_bin = cp.dumps(call)
 
         r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
-        return cp.loads(r.data)
+        return cp.loads(r.content)
 
     def __setitem__(self, index, value):
         args = [index, value]
@@ -57,7 +57,7 @@ class Vec_Resp():
         call_bin = cp.dumps(call)
 
         r = self.session.post(self.service_addr + "/vector/request", data=call_bin)
-        return cp.loads(r.data)
+        return cp.loads(r.content)
 
 class Mat_Resp():
     def __init__(self, id, addr, session):
