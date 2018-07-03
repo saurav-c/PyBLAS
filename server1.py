@@ -74,6 +74,7 @@ def return_error(error=''):
     return resp
 
 def run():
+    OBJ_ID = 0
     app.secret_key = "this is a secret key"
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)
