@@ -26,6 +26,49 @@ class SkyConnection():
         return Mat_Resp(cp.loads(r.content), self.service_addr, self.session)
 
 
+    def inner_product(self, Vec1, Vec2):
+        funcname = 'inner_prod'
+        objs = [Vec1.id, Vec2.id]
+        args = [funcname, objs]
+        args_bin = cp.dumps(args)
+
+        r = self.session.post(self.service_addr + "/innerproduct", data=args_bin)
+        return r.content
+
+    
+    def outer_product(self, Vec1, Vec2):
+        funcname = 'outer_prod'
+        objs = [Vec1.id, Vec2.id]
+        args = [funcname, objs]
+        args_bin = cp.dumps(args)
+
+        r = self.session.post(self.service_addr + "/outerproduct", data=args_bin)
+        return Mat_Resp(cp.loads(r.content), self.service_addr, self.session)
+
+
+    # Matrix - Vector Multiplication
+    def mv_mul(self, matx, vec):
+        funcname = 'prod1'
+        objs = [matx.id, vec.id]
+        args = [funcname, objs]
+        args_bin = cp.dumps(args)
+
+        r = self.session.post(self.service_addr + "/matrixvector", data=args_bin)
+        return Vec_Resp(cp.loads(r.content), self.service_addr, self.session)
+
+
+    # Matrix - Matrix Multiplication
+    def mm_mul(self, matx1, matx2):
+        funcname = 'prod2'
+        objs = [matx1.id, matx2.id]
+        args = [funcname, objs]
+        args_bin = cp.dumps(args)
+
+        r = self.session.post(self.service_addr + "/matrixmatrix", data=args_bin)
+        return Mat_Resp(cp.loads(r.content), self.service_addr, self.session)
+
+
+
 
 class Vec_Resp():
     def __init__(self, id, addr, session):
@@ -64,12 +107,34 @@ class Vec_Resp():
         r = request('max_size')
         return cp.loads(r.content)
 
+    
     def empty(self):
         r = request('empty')
 
-    def swap(self, other):
-        r = request('swap', [other])
-        
+    
+    def swap(self, vector):
+        r = request('swap', [vector.id])
+
+    
+    def clear(self):
+        r = request('clear')
+
+
+    def mul(self, scalar):
+        r = request('mul', [scalar])
+
+
+    def div(self, scalar):
+        r = request('div', [scalar])
+
+
+    def add(self, vector):
+        r = request('add', [vector.id])
+
+
+    def sub(self, vector):
+        r = request('sub', [vector.id])
+
 
 
 class Mat_Resp():

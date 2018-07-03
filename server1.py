@@ -17,7 +17,15 @@ def connect():
 
     flask.session['dict'] = {}
     flask.session['OBJ_ID'] = 0
+    flask.session['vfuncs'] = ['swap', 'add', 'sub']
     return construct_response()
+
+
+def getcurrID():
+    return flask.session['OBJ_ID']
+
+def incrID():
+    flask.session['OBJ_ID'] += 1
 
 
 
@@ -27,13 +35,28 @@ def vector():
     args = cp.loads(flask.request.get_data())
     vec = pyblas.Vector(args)
 
-    key = flask.session['OBJ_ID']
+    key = getcurrID()
     flask.session['dict'][key] = vec
 
     resp = key
-    flask.session['OBJ_ID'] += 1
+    incrID()
 
     return construct_response(resp)
+
+
+@app.route('/matrix', methods=['POST'])
+def matrix():
+    args = cp.loads(flask.request.get_data())
+    vec = pyblas.Matrix(args)
+
+    key = getcurrID()
+    flask.session['dict'][key] = vec
+
+    resp = key
+    incrID()
+
+    return construct_response(resp)
+
 
 
 @app.route('/request', methods=['POST'])
@@ -43,11 +66,50 @@ def vector_request():
     fname = call[1]
     args = call[2]
 
+    if fname in flask.session['vfuncs']:
+        args[0] = flask.session['dict'][args[0]] 
+
     vec = flask.session['dict'][obj_id]
     handle = getattr(vec, fname)
     ret = handle(*args)
 
     return construct_response(ret)
+
+
+@app.route('/innerproduct', methods=['POST'])
+def func_value():
+    call = cp.loads(flask.request.get_data())
+    fname = call[0]
+    args = call[1]
+    for i in range(len(args)):
+        args[i] = flask.session['dict'][args[i]]
+
+
+    handle = getattr(pyblas, fname)
+    ret = handle(*args)
+
+    return construct_response(ret)
+
+
+@app.route('/outerproduct', methods=['POST'])
+@app.route('/matrixvector', methods=['POST'])
+@app.route('/matrixmatrix', methods=['POST'])
+def func_object():
+    call = cp.loads(flask.request.get_data())
+    fname = call[0]
+    args = call[1]
+    for i in range(len(args)):
+        args[i] = flask.session['dict'][args[i]]
+
+
+    handle = getattr(pyblas, fname)
+    ret = handle(*args)
+
+    key = getcurrID()
+    flask.session['dict'][key] = ret
+    incrID()
+
+    return construct_response(key)
 
 
 
