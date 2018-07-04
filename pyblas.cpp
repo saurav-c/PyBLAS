@@ -82,7 +82,7 @@ public:
 
 
 
-struct world_pickle_suite : boost::python::pickle_suite
+struct vector_pickle : boost::python::pickle_suite
 {
     static
     boost::python::tuple
@@ -125,7 +125,6 @@ struct world_pickle_suite : boost::python::pickle_suite
 
         std::string bytes = extract<std::string>(state[0]);
 
-        // std::ostringstream oss = extract<std::ostringstream>(state[0]).str();
         std::istringstream iss(bytes);
         {
             boost::archive::text_iarchive ia(iss);
@@ -149,6 +148,84 @@ public:
     double get(unsigned int row, unsigned int col) {return (*this)(row, col);}
     void set(unsigned int row, unsigned int col, double val) {(*this)(row, col) = val;}
 
+
+    void mul(double scalar) {
+        *(this) *= scalar;
+    }
+    void div(double scalar) {
+        *(this) /= scalar;
+    }
+    void add(Matrix mat) {
+        *(this) += mat;
+    }
+    void sub(Matrix mat) {
+        *(this) -= mat;
+    }
+
+    void swapper(Matrix& m) {
+        (*this).swap(m);
+    }
+
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & boost::serialization::base_object<BaseMatrix>(*this);
+    }
+
+};
+
+struct matrix_pickle : boost::python::pickle_suite
+{
+    static
+    boost::python::tuple
+    getinitargs(const Matrix& m)
+    {
+        return boost::python::make_tuple(m.size1(), m.size2());
+    }
+
+
+    static
+    boost::python::tuple
+    getstate(const Matrix& m)
+    {
+        std::ostringstream oss;
+        {
+            boost::archive::text_oarchive oa(oss);
+            oa << m;
+        }
+        
+        std::string bytes = oss.str();
+
+        return boost::python::make_tuple(bytes);
+    }
+
+    static
+    void
+    setstate(Matrix& m, boost::python::tuple state)
+    {
+        using namespace boost::python;
+        if (len(state) != 1) 
+        {
+            PyErr_SetObject(PyExc_ValueError,
+                          ("expected 1-item tuple in call to __setstate__; got %s"
+                           % state).ptr()
+              );
+          throw_error_already_set();
+        }
+
+        Matrix new_mat;
+
+        std::string bytes = extract<std::string>(state[0]);
+
+        std::istringstream iss(bytes);
+        {
+            boost::archive::text_iarchive ia(iss);
+            ia >> new_mat;
+        }
+
+        m = new_mat;
+    }
 };
 
 
@@ -198,7 +275,7 @@ BOOST_PYTHON_MODULE(pyblas)
     	.def("add", &Vector::add)
     	.def("sub", &Vector::sub)
         .def("show", &Vector::print)
-        .def_pickle(world_pickle_suite())
+        .def_pickle(vector_pickle())
     ;
 
     def("inner_prod", ip);
@@ -218,7 +295,13 @@ BOOST_PYTHON_MODULE(pyblas)
     	.def("rows", &Matrix::size1)
     	.def("cols", &Matrix::size2)
     	.def("clear", &Matrix::clear)
+        .def("mul", &Matrix::mul)
+        .def("div", &Matrix::div)
+        .def("add", &Matrix::add)
+        .def("sub", &Matrix::sub)
+        .def("swap", &Matrix::swapper)
         .def("show", &Matrix::print)
+        .def_pickle(matrix_pickle())
     ;
 }
 
