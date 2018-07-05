@@ -99,10 +99,12 @@ class Mat_Resp():
 
     def rows(self):
         r = self.request('rows')
+        return cp.loads(r.content)
 
 
     def cols(self):
         r = self.request('cols')
+        return cp.loads(r.content)
 
 
     def clear(self):
