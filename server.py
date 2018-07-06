@@ -39,8 +39,11 @@ def vector():
 
     else:
         if serial:
-            arg = flask.session['dict'][args]
-        vec = pyblas.Vector(arg)
+            arg = flask.session['dict'][arg]
+            vec = pyblas.Vector(arg)
+        else:
+            vec = pyblas.Vector(arg)
+            vec.clear()
 
     key = getcurrID()
     flask.session['dict'][key] = vec
@@ -62,10 +65,11 @@ def matrix():
 
     else:
         if serial:
-            arg = flask.session['dict'][args]
+            arg = flask.session['dict'][arg]
             mat = pyblas.Matrix(arg)
         else:
             mat = pyblas.Matrix(arg[0], arg[1])
+            mat.clear()
 
     key = getcurrID()
     flask.session['dict'][key] = mat

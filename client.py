@@ -15,6 +15,7 @@ class PyBlasConnection():
         
         if isinstance(args, Vec_Resp):
             serial = True
+            args = args.id
 
         args = [serial, args]
         args_bin = cp.dumps(args)
@@ -29,6 +30,7 @@ class PyBlasConnection():
         
         if isinstance(args, Mat_Resp):
             serial = True
+            args = args.id
 
         args = [serial, args]
         args_bin = cp.dumps(args)

@@ -6,6 +6,20 @@ class Vec_Resp():
         self.id = id
         self.service_addr = addr
         self.session = session
+        self.rep = ''
+        self.changed = True
+
+
+    def __str__(self):
+        if self.changed:
+            rep = '[ '
+            for i in range(self.size()):
+                rep += str(self.__getitem__(i)) + ' '
+            rep += ']'
+            self.rep = rep
+            self.changed = False
+        return self.rep
+
 
 
     def request(self, funcname, args=[]):
@@ -17,11 +31,14 @@ class Vec_Resp():
 
 
     def __getitem__(self, index):
+        assert index >= 0 and index < self.size(), "Index out of bound"
+        self.changed = True
         r = self.request('__getitem__', [index])
         return cp.loads(r.content)
 
 
     def __setitem__(self, index, value):
+        assert index >= 0 and index < self.size(), "Index out of bound"
         r = self.request('__setitem__', [index, value])
 
 
@@ -84,12 +101,24 @@ class Mat_Resp():
 
 
     def __getitem__(self, pair):
+        assert isinstance(pair, list), "Must input index as a list: [ROW, COL]"
+        row = pair[0]
+        col = pair[1]
+        assert row >= 0 and row < self.rows(), "Row index out of bounds"
+        assert col >= 0 and col < self.col(), "Col index out of bounds"
+
         r = self.request('get', [pair[0], pair[1]])
         return cp.loads(r.content)
 
 
 
     def __setitem__(self, pair, val):
+        assert isinstance(pair, list), "Must input index as a list: [ROW, COL]"
+        row = pair[0]
+        col = pair[1]
+        assert row >= 0 and row < self.rows(), "Row index out of bounds"
+        assert col >= 0 and col < self.col(), "Col index out of bounds"
+
         r = self.request('set', [pair[0], pair[1], val])
 
 
