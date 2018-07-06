@@ -36,6 +36,7 @@ def vector():
 
     if arg is None:
         vec = pyblas.Vector()
+        vec.clear()
 
     else:
         if serial:
@@ -62,6 +63,7 @@ def matrix():
 
     if arg is None:
         mat = pyblas.Matrix()
+        mat.clear()
 
     else:
         if serial:
