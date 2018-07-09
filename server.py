@@ -163,7 +163,7 @@ def run():
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)
     app.debug = True
-    app.run(threaded=True, host='0.0.0.0', port=7000)
+    app.run(threaded=True, host='0.0.0.0', port=6000)
 
 
 run()
