@@ -1,5 +1,6 @@
 import cloudpickle as cp
 import requests
+import random
 
 class Vec_Resp():
     def __init__(self, id, addr, session):
@@ -189,6 +190,15 @@ class Mat_Resp():
 
     def sub(self, matrix):
         r = self.request('sub', [matrix.id])
+        self.changed = True
+
+
+    def random(self, low=0, high=100, seed=None):
+        random.seed(seed)
+        for i in range(self.rows()):
+            for j in range(self.cols()):
+                self.__setitem__([i, j], random.randint(low, high))
+                
         self.changed = True
 
 
