@@ -192,5 +192,10 @@ class Mat_Resp():
         self.changed = True
 
 
+    def trans(self):
+        r = self.request('trans')
+        self.changed = True
+
+
 
 
