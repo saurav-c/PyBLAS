@@ -42,6 +42,8 @@ RUN mv build/lib.linux-x86_64-2.7/pyblas.so /usr/src/PyBlas
 
 RUN pip install -r requirements.txt
 
+EXPOSE 6000 
+
 ENTRYPOINT ["python"]
 
 CMD ["server.py"]
