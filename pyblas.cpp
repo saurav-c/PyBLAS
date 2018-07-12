@@ -167,6 +167,7 @@ public:
     }
 
 
+
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version)
     {
@@ -301,7 +302,6 @@ BOOST_PYTHON_MODULE(pyblas)
         .def("sub", &Matrix::sub)
         .def("swap", &Matrix::swapper)
         .def("show", &Matrix::print)
-        .def("trans", &Matrix::trans)
         .def_pickle(matrix_pickle())
     ;
 }
