@@ -94,6 +94,7 @@ class Vec_Resp():
 
 
 
+
 class Mat_Resp():
     def __init__(self, id, addr, session):
         self.id = id
@@ -114,6 +115,7 @@ class Mat_Resp():
                 rep += '] \n'
             rep += ']'
             self.rep = rep
+            self.changed = False
         return self.rep
 
 
@@ -193,13 +195,6 @@ class Mat_Resp():
         self.changed = True
 
 
-    def random(self, low=0, high=100, seed=None):
-        random.seed(seed)
-        for i in range(self.rows()):
-            for j in range(self.cols()):
-                self.__setitem__([i, j], random.randint(low, high))
-                
-        self.changed = True
 
 
 
