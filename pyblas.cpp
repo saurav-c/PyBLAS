@@ -166,6 +166,10 @@ public:
         (*this).swap(m);
     }
 
+    Matrix transpose() {
+        BaseMatrix mat = trans(*this);
+        return Matrix(mat);
+    }
 
 
     template<class Archive>
@@ -302,6 +306,7 @@ BOOST_PYTHON_MODULE(pyblas)
         .def("sub", &Matrix::sub)
         .def("swap", &Matrix::swapper)
         .def("show", &Matrix::print)
+        .def("trans", &Matrix::transpose)
         .def_pickle(matrix_pickle())
     ;
 }

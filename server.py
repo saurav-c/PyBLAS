@@ -76,10 +76,9 @@ def matrix():
     key = getcurrID()
     flask.session['dict'][key] = mat
 
-    resp = key
     incrID()
 
-    return construct_response(resp)
+    return construct_response(key)
 
 
 
@@ -97,7 +96,17 @@ def request():
     handle = getattr(vec, fname)
     ret = handle(*args)
 
+    if fname == 'trans':
+        resp = store_obj(ret)
+        return construct_response(resp)
+
     return construct_response(ret)
+
+def store_obj(pyobj):
+    key = getcurrID()
+    flask.session['dict'][key] = pyobj
+    incrID()
+    return key
 
 
 @app.route('/innerproduct', methods=['POST'])

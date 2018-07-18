@@ -195,6 +195,12 @@ class Mat_Resp():
         self.changed = True
 
 
+    def trans(self):
+        r = self.request('trans')
+
+        return Mat_Resp(cp.loads(r.content), self.service_addr, self.session)
+
+
 
 
 
